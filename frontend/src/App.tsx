@@ -8,6 +8,8 @@ import Signin from "./components/Signin";
 import { useEffect } from "react";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { userAtom } from "./Store/user";
+import { Topbar } from "./components/Topbar";
+import { Card } from "./components/Card";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -79,7 +81,8 @@ function StoreApp() {
   return (
     <div className="place-items-center grid">
       <div className="max-w-screen-lg w-full">
-        you are logged in as {user.user.email}
+        <Topbar />
+        <Card>hi there</Card>
         {/* <Router>
         <Topbar />
           <Routes>
