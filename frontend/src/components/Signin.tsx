@@ -1,25 +1,33 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithPopup } from "firebase/auth";
 import { useRef, useState } from "react";
+import { GoogleAuthProvider } from "firebase/auth";
+import { auth } from "../App";
+
+const provider = new GoogleAuthProvider();
 
 const Signin = () => {
   const [isSignedin, setSignedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const auth = getAuth();
-  const handleonClick = () => {
-    if (!isSignedin) {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed up
-          const user = userCredential.user;
-          alert("user created Successfully");
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-        });
-    }
-  };
+
+  async function onSignin() {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        if (!credential) {
+          return;
+        }
+        // The signed-in user info.
+        const user = result.user;
+        console.log(user);
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch(() => {
+        alert("erorr while signing in");
+      });
+  }
   return (
     <div className="">
       <input
@@ -36,7 +44,7 @@ const Signin = () => {
         className="bg-black text-white"
         placeholder="Password"
       />
-      <button onClick={() => handleonClick()}>Submit</button>
+      <button onClick={() => onSignin()}>Submit</button>
     </div>
   );
 };
