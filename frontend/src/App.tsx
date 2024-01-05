@@ -10,6 +10,12 @@ import { RecoilRoot, useRecoilState } from "recoil";
 import { userAtom } from "./Store/user";
 import { Topbar } from "./components/Topbar";
 import { Card } from "./components/Card";
+import { Leaderboard } from "./components/Leaderboard";
+import { About } from "./components/About";
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import { ProblemList } from "./components/ProblemList";
+import { SubmissionActivityList } from "./components/SubmissionListActivity";
+import Submission from "./components/Submission";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -77,22 +83,53 @@ function StoreApp() {
       </div>
     );
   }
-
+  const submissions = [
+    {
+      Name: "John",
+      position: 1,
+      time: "10:00",
+      answerIsCorrect: true,
+      username: "test",
+    },
+    {
+      Name: "John",
+      position: 1,
+      time: "10:00",
+      answerIsCorrect: true,
+      username: "test",
+    },
+    {
+      Name: "John",
+      position: 1,
+      time: "10:00",
+      answerIsCorrect: true,
+      username: "test",
+    },
+    // Add more submissions as needed
+  ];
   return (
     <div className="place-items-center grid">
       <div className="max-w-screen-lg w-full">
-        <Topbar />
-        <Card>hi there</Card>
-        {/* <Router>
-        <Topbar />
+        {/* <Topbar />
+        <Card></Card> */}
+        {/* <Leaderboard /> */}
+        <Router>
+          <Topbar />
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/about" element={<About />} />
-            <Route path="/activity" element={<Submissions />} />
-            <Route path="/problems" element={<ProblemList problemList={problemList} />} />
+            <Route
+              path="/activity"
+              element={<SubmissionActivityList submissions={submissions} />}
+            />
+            {/* <Route path="/activity" element={<Submission />} /> */} */
+            <Route
+              path="/problems"
+              element={<ProblemList problemList={problemList} />}
+            />
           </Routes>
-        </Router> */}
-        {/* <Leaderboard /> */}
+        </Router>
+        {/* <Leaderboard />
         {/* <Leaderboard leaderboard={leaderboardData} /> */}
       </div>
     </div>
